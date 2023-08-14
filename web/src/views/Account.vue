@@ -1,11 +1,12 @@
 <template>
+  <v-card variant="flat" class="ma-4">
   <v-data-table
     v-model:page="page"
     :headers="headers"
     :items="desserts"
     :items-per-page="itemsPerPage"
     hide-default-footer
-    class="elevation-1"
+    class="elevation-0"
   >
     <template v-slot:bottom>
       <div class="text-center pt-2">
@@ -26,10 +27,11 @@
       </div>
     </template>
   </v-data-table>
+  </v-card>
 </template>
 
 <script setup lang="ts">
-import {ref, computed, reactive} from 'vue'
+import {ref, computed} from 'vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
 
       let page = ref(1)

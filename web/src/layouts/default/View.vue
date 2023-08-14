@@ -15,7 +15,7 @@
 <style>
 .slide-in-down-enter-active,
 .slide-in-down-leave-active {
-  transition: transform .6s cubic-bezier(0.25, 0.8, 0.5, 1), opacity .8s;
+  transition: transform .3s cubic-bezier(0.25, 0.8, 0.5, 1), opacity .4s;
   opacity: 1;
 }
 

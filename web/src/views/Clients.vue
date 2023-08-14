@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card variant="flat" class="ma-4">
   <v-card-title>
     Clients
     <v-spacer></v-spacer>
@@ -85,12 +85,11 @@ let headers = [
 ]
 
 watch([name, phone], (newValues, prevValues) => {
-  console.log(name, phone)
+  search.value = String(Date.now())
 })
 
 const FakeAPI = {
   async fetch ({ page, itemsPerPage, sortBy, search }) {
-    console.log(search)
     return new Promise(resolve => {
       setTimeout(() => {
         const start = (page - 1) * itemsPerPage
