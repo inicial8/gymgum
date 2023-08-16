@@ -2,8 +2,8 @@
   <v-navigation-drawer
     v-model="drawer"
     :rail="rail"
-    permanent
     @click="rail = false"
+    location="left"
   >
     <v-list-item
       prepend-avatar="@/assets/logo.png"
@@ -27,14 +27,17 @@
       <v-list-item prepend-icon="mdi-account-group-outline" title="Clients" value="clients" to="/clients"></v-list-item>
     </v-list>
   </v-navigation-drawer>
-  <v-main style="height: 250px"></v-main>
   <v-app-bar
-    class="px-4"
     color="blue-darken-2"
     flat
     height="74"
     density="compact"
   >
+    <v-btn
+      icon="mdi-menu"
+      @click.stop="drawer = !drawer"
+      v-show="!drawer"
+    />
     <v-app-bar-title>{{ title }}</v-app-bar-title>
     <template v-slot:append>
       <v-btn icon="mdi-theme-light-dark" class="ml-3" @click="toggleTheme"></v-btn>

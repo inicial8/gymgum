@@ -2,14 +2,14 @@
   <v-main>
     <router-view v-slot="{ Component, route }">
       <transition name="slide-in-down" mode="out-in">
-        <component :is="Component" :key="route.path" />
+        <component :is="Component" :key="route.path"/>
       </transition>
     </router-view>
   </v-main>
 </template>
 
 <script lang="ts" setup>
-  //
+//
 </script>
 
 <style>
