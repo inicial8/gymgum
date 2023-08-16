@@ -37,9 +37,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref, computed, reactive, watch} from 'vue'
+import {ref, computed, reactive, watch, onMounted} from 'vue'
 import { VDataTableServer } from 'vuetify/labs/VDataTable'
+import {useMainStore} from "@/stores/main"
 
+const { setTitle } = useMainStore()
 let page = ref(1)
 let itemsPerPage = ref(5)
 let totalItems = 15
@@ -133,5 +135,9 @@ function loadItems ({ page, itemsPerPage, sortBy }) {
 }
 const pageCount = computed(() => {
   return Math.ceil(clients.length / itemsPerPage.value)
+})
+
+onMounted(() => {
+  setTitle('Clients')
 })
 </script>

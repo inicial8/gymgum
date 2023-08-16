@@ -6,11 +6,12 @@
   >
     <v-avatar
       color="transparent"
-      size="26"
-      class="ma-4"
+      size="32"
+      class="ma-3"
     >
       <v-icon icon="mdi-dumbbell" size="small"></v-icon>
     </v-avatar>
+    <span class="text-no-wrap text-medium-emphasis text-caption"><b>GymGum</b> {{ props.version }}</span>
 
     <v-divider></v-divider>
 
@@ -55,7 +56,7 @@
       height="74"
       density="compact"
     >
-          <v-app-bar-title><b>GymGum</b> {{ props.version }}</v-app-bar-title>
+          <v-app-bar-title>{{ title }}</v-app-bar-title>
           <template v-slot:append>
             <v-btn icon="mdi-theme-light-dark" class="ml-3" @click="toggleTheme"></v-btn>
           </template>
@@ -88,6 +89,8 @@
 <script lang="ts" setup>
 import {ref, onMounted, Ref} from "vue"
 import { useTheme } from 'vuetify'
+import { useMainStore } from '@/stores/main'
+import { storeToRefs } from 'pinia'
 
 const theme = useTheme()
 
@@ -98,7 +101,8 @@ let loading: Ref<boolean> = ref(false)
 let year: Ref<number> = ref(20)
 let search: Ref<string> = ref('')
 let drawer = ref(true)
-let rail = ref(true)
+let rail = ref(false)
+const { title } = storeToRefs(useMainStore())
 
 const props = withDefaults(defineProps<Props>(), {
   version: 'expert'
