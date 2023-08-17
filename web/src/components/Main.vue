@@ -3,17 +3,20 @@
     <v-toolbar
       color="gray"
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>Your dashboards</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
+      <v-btn icon @click="showDialog()" v-if="currentItem === 'tab-Members'">
+        <v-icon>mdi-account-multiple-plus-outline</v-icon>
+      </v-btn>
+
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn icon @click.stop="showActionsBar()" v-show="actionBar">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
 
@@ -52,7 +55,6 @@
               <v-list-item
                 v-for="item in more"
                 :key="item"
-                @click="addItem(item)"
               >
                 {{ item }}
               </v-list-item>
@@ -68,10 +70,17 @@
         :key="item"
         :value="'tab-' + item"
       >
-        <v-card flat>
+        <v-card flat v-if="currentItem === 'tab-Members'">
           <v-card-text>
-            <h2>{{ item }}</h2>
-            {{ text }}
+            <div class="pa-6">
+              <MembersTable />
+              <MembersDialog :dialog="dialog" @close-dialog="closeDialog"/>
+            </div>
+          </v-card-text>
+        </v-card>
+        <v-card flat v-if="currentItem === 'tab-Shopping'">
+          <v-card-text>
+            ShoppingComponent
           </v-card-text>
         </v-card>
       </v-window-item>
@@ -81,10 +90,28 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import MembersTable from "@/components/Dashboard/Members/Table.vue"
+import MembersDialog from "@/components/Dashboard/Members/DialogForm.vue"
+import {useMainStore} from "@/stores/main"
+import {storeToRefs} from "pinia"
 
-const currentItem = ref('tab-Web')
-const items = ref(['Web', 'Shopping', 'Videos', 'Images'])
+const { setActionBar } = useMainStore()
+const {actionBar} = storeToRefs(useMainStore())
+
+const currentItem = ref('tab-Members')
+const items = ref(['Members', 'Shopping', 'Videos', 'Images'])
 const more = ref(['News', 'Maps', 'Books', 'Flights', 'Apps'])
-const text = ref('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.')
+let dialog = ref(false)
 
+function showActionsBar(){
+  setActionBar(true)
+}
+
+function showDialog(){
+  dialog.value = true
+}
+
+function closeDialog(){
+  dialog.value = false
+}
 </script>

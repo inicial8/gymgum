@@ -6,12 +6,14 @@
     location="left"
   >
     <v-list-item
-      prepend-avatar="@/assets/logo.png"
-      :title="`GymGum ${props.version}`"
+      prepend-avatar="@/assets/gg-logo-96.png"
       nav
+      class="logo"
     >
       <template v-slot:append>
+        <strong class="logo">Hexa|Gym expert</strong>
         <v-btn
+          class="logo"
           variant="text"
           icon="mdi-chevron-left"
           @click.stop="rail = !rail"
@@ -22,36 +24,33 @@
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item prepend-icon="mdi-home-city" title="Home" value="home" to="/"></v-list-item>
+      <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="dashboards" to="/"></v-list-item>
       <v-list-item prepend-icon="mdi-account" title="My Account" value="account" to="/account"></v-list-item>
       <v-list-item prepend-icon="mdi-account-group-outline" title="Clients" value="clients" to="/clients"></v-list-item>
     </v-list>
   </v-navigation-drawer>
   <v-app-bar
-    color="blue-darken-2"
+    color="blue-accent-2"
     flat
-    height="74"
-    density="compact"
+    height="56"
   >
     <v-btn
       icon="mdi-menu"
       @click.stop="drawer = !drawer"
-      v-show="!drawer"
     />
-    <v-app-bar-title>{{ title }}</v-app-bar-title>
+    <v-app-bar-title><strong>{{ title }}</strong></v-app-bar-title>
     <template v-slot:append>
       <v-tooltip text="Switch theme" location="bottom">
         <template v-slot:activator="{ props }">
-          <v-btn icon="mdi-theme-light-dark" class="ml-3" @click="toggleTheme" v-bind="props"></v-btn>
+          <v-btn icon="mdi-theme-light-dark" class="ml-1" @click="toggleTheme" v-bind="props"></v-btn>
         </template>
       </v-tooltip>
 
       <v-tooltip text="Login" location="bottom">
         <template v-slot:activator="{ props }">
-          <v-btn icon="mdi-login" class="ml-3" v-bind="props"></v-btn>
+          <v-btn icon="mdi-login" class="ml-1" v-bind="props" to="login"></v-btn>
         </template>
       </v-tooltip>
-
 
     </template>
 
@@ -115,3 +114,15 @@ function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
 </script>
+
+<style scoped>
+.v-theme--dark .logo {
+  filter: invert(100%);
+  color: #fff;
+}
+
+.v-theme--light .logo {
+  filter: invert(10%);
+  color: #000;
+}
+</style>

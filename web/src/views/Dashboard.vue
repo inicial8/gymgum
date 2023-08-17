@@ -10,6 +10,6 @@
   const { setTitle } = useMainStore()
 
   onMounted(() => {
-    setTitle('Home')
+    setTitle('Dashboard')
   })
 </script>

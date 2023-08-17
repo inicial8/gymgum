@@ -1,8 +1,6 @@
 <template>
   <v-card variant="flat" class="ma-4">
   <v-card-title>
-    Clients
-    <v-spacer></v-spacer>
     <v-text-field
       v-model="search"
       append-icon="mdi-magnify"

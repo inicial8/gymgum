@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="grey-lighten-5" height="200">
+  <v-footer height="200">
     <v-row justify="center" no-gutters>
       <v-btn
         variant="text"
@@ -32,7 +32,7 @@
         Contact Us
       </v-btn>
       <v-col class="text-center mt-2" cols="12">
-        {{ date }} © <strong>GymGum</strong> expert
+        {{ date }} © <strong>Hexa|Gym</strong> expert
       </v-col>
     </v-row>
   </v-footer>
