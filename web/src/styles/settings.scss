@@ -8,3 +8,34 @@
 // @use 'vuetify' with (
 //   $color-pack: false
 // );
+//@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Magra:wght@400;700&family=Titillium+Web:wght@400;600&display=swap');
+
+$font-family: "Magra" !important;
+$html-font-family: "Titillium Web" !important;
+$heading-font-family: "Titillium Web" !important;
+
+
+//#app {
+//  font-family: "Sacramento", sans-serif;
+//  color: #1565b6;
+//}
+
+html {
+  font-family: "Magra", sans-serif;
+  font-size: 11pt;
+}
+
+body {
+  font-family: "Magra", sans-serif;
+  font-size: 11pt;
+}
+
+a {
+  font-family: "Magra", sans-serif;
+}
+
+.v-data-table {
+  width: 100%;
+  font-size: 10pt;
+}
