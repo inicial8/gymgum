@@ -1,9 +1,40 @@
 <template>
-  <v-footer
-    app
-    height="72"
-  >
-    {{ date }}@copy
+  <v-footer color="grey-lighten-5" height="200">
+    <v-row justify="center" no-gutters>
+      <v-btn
+        variant="text"
+      >
+        Home
+      </v-btn>
+      <v-btn
+        variant="text"
+      >
+        About Us
+      </v-btn>
+      <v-btn
+        variant="text"
+      >
+        Team
+      </v-btn>
+      <v-btn
+        variant="text"
+      >
+        Services
+      </v-btn>
+      <v-btn
+        variant="text"
+      >
+        Blog
+      </v-btn>
+      <v-btn
+        variant="text"
+      >
+        Contact Us
+      </v-btn>
+      <v-col class="text-center mt-2" cols="12">
+        {{ date }} © <strong>GymGum</strong> expert
+      </v-col>
+    </v-row>
   </v-footer>
 </template>
 
