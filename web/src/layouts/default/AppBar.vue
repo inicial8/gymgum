@@ -40,7 +40,19 @@
     />
     <v-app-bar-title>{{ title }}</v-app-bar-title>
     <template v-slot:append>
-      <v-btn icon="mdi-theme-light-dark" class="ml-3" @click="toggleTheme"></v-btn>
+      <v-tooltip text="Switch theme" location="bottom">
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-theme-light-dark" class="ml-3" @click="toggleTheme" v-bind="props"></v-btn>
+        </template>
+      </v-tooltip>
+
+      <v-tooltip text="Login" location="bottom">
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-login" class="ml-3" v-bind="props"></v-btn>
+        </template>
+      </v-tooltip>
+
+
     </template>
 
     <v-spacer></v-spacer>
