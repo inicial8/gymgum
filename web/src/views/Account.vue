@@ -1,40 +1,7 @@
-<template>
-  <v-card variant="flat" class="ma-4">
-  <v-data-table
-    v-model:page="page"
-    :headers="headers"
-    :items="desserts"
-    :items-per-page="itemsPerPage"
-    hide-default-footer
-    class="elevation-0"
-  >
-    <template v-slot:bottom>
-      <div class="text-center pt-2">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-        ></v-pagination>
-        <v-text-field
-          :model-value="itemsPerPage"
-          class="pa-2"
-          label="Items per page"
-          type="number"
-          min="-1"
-          max="15"
-          hide-details
-          @update:model-value="itemsPerPage = parseInt($event, 10)"
-        ></v-text-field>
-      </div>
-    </template>
-  </v-data-table>
-  </v-card>
-</template>
-
 <script setup lang="ts">
-import {ref, computed, onMounted} from 'vue'
-import { VDataTable } from 'vuetify/labs/VDataTable'
-
-import { useMainStore } from '@/stores/main'
+import {ref, computed, onMounted} from "vue";
+import { VDataTable } from "vuetify/labs/VDataTable";
+import { useMainStore } from "@/stores/main";
 
 const { setTitle } = useMainStore()
 
@@ -144,6 +111,37 @@ let pageCount = computed(() => {
 })
 </script>
 
+<template>
+  <v-card variant="flat" class="ma-4">
+  <v-data-table
+    v-model:page="page"
+    :headers="headers"
+    :items="desserts"
+    :items-per-page="itemsPerPage"
+    hide-default-footer
+    class="elevation-0"
+  >
+    <template v-slot:bottom>
+      <div class="text-center pt-2">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+        ></v-pagination>
+        <v-text-field
+          :model-value="itemsPerPage"
+          class="pa-2"
+          label="Items per page"
+          type="number"
+          min="-1"
+          max="15"
+          hide-details
+          @update:model-value="itemsPerPage = parseInt($event, 10)"
+        ></v-text-field>
+      </div>
+    </template>
+  </v-data-table>
+  </v-card>
+</template>
 
 <style scoped>
 

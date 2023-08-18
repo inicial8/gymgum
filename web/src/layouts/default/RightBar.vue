@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-import {ref} from "vue";
 import {storeToRefs} from "pinia";
 import {useMainStore} from "@/stores/main";
 
 const {actionBar} = storeToRefs(useMainStore())
-const drawer = ref(true)
 </script>
 
 <template>

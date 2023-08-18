@@ -1,9 +1,18 @@
+import {storeToRefs} from "pinia";
+import {useMainStore} from "@/stores/main";
 import {createRouter, createWebHistory} from "vue-router";
+
+const NotFound = {template: '<h2>Page Not Found</h2>'}
 
 const routes = [
   {
     path: '/login',
-    component: () => import('@/views/Login.vue')
+    name: 'Login',
+    component: () => import('@/views/Login.vue'),
+    beforeEnter: (to: any, from: any) => {
+      const {isAuthenticated} = storeToRefs(useMainStore())
+      if (to.name === 'Login' && isAuthenticated.value) return {name: from.name}
+    },
   },
   {
     path: '/',
@@ -26,6 +35,10 @@ const routes = [
         component: () => import('@/views/Clients.vue'),
       },
     ],
+    beforeEnter: (to: any, from: any) => {
+      const {user} = storeToRefs(useMainStore())
+      if (!(user.value.role === 'admin')) return {name: from.name}
+    },
   },
   {
     path: '/account',
@@ -37,12 +50,22 @@ const routes = [
         component: () => import('@/views/Account.vue'),
       },
     ],
+    beforeEnter: (to: any, from: any) => {
+      const {user} = storeToRefs(useMainStore())
+      if (!(user.value.role === 'client')) return {name: from.name}
+    },
   },
+  {path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound},
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+})
+
+router.beforeEach((to, from) => {
+  const {isAuthenticated} = storeToRefs(useMainStore())
+  if (to.name !== 'Login' && !isAuthenticated.value) return {name: 'Login'}
 })
 
 export default router

@@ -3,6 +3,9 @@ import {ref, onMounted, Ref} from "vue";
 import {useTheme} from "vuetify";
 import {useMainStore} from "@/stores/main";
 import {storeToRefs} from "pinia";
+import router from "@/router";
+
+const {user, isAuthenticated} = storeToRefs(useMainStore())
 
 const theme = useTheme()
 
@@ -32,6 +35,12 @@ function handleSearch(): void {
 function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
+
+function logout () {
+  localStorage.removeItem('user')
+  localStorage.removeItem('role')
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -60,9 +69,9 @@ function toggleTheme() {
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="dashboards" to="/"></v-list-item>
-      <v-list-item prepend-icon="mdi-account" title="My Account" value="account" to="/account"></v-list-item>
-      <v-list-item prepend-icon="mdi-account-group-outline" title="Clients" value="clients" to="/clients"></v-list-item>
+      <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="dashboards" to="/" v-if="user.role === 'admin'"></v-list-item>
+      <v-list-item prepend-icon="mdi-account" title="My Account" value="account" to="/account" v-if="user.role === 'admin' || user.role === 'client'"></v-list-item>
+      <v-list-item prepend-icon="mdi-account-group-outline" title="Clients" value="clients" to="/clients" v-if="user.role === 'admin'"></v-list-item>
     </v-list>
   </v-navigation-drawer>
   <v-app-bar
@@ -81,10 +90,17 @@ function toggleTheme() {
           <v-btn icon="mdi-theme-light-dark" class="ml-1" @click="toggleTheme" v-bind="props"></v-btn>
         </template>
       </v-tooltip>
+      <span>{{ user.name }}</span>
 
-      <v-tooltip text="Login" location="bottom">
+      <v-tooltip text="Login" location="bottom" v-if="!isAuthenticated">
         <template v-slot:activator="{ props }">
           <v-btn icon="mdi-login" class="ml-1" v-bind="props" to="login"></v-btn>
+        </template>
+      </v-tooltip>
+
+      <v-tooltip text="Logout" location="bottom" v-else>
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-logout" class="ml-1" v-bind="props" @click.stop="logout"></v-btn>
         </template>
       </v-tooltip>
 

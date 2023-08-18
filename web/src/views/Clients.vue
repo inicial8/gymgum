@@ -1,45 +1,9 @@
-<template>
-  <v-card variant="flat" class="ma-4">
-  <v-card-title>
-    <v-text-field
-      v-model="search"
-      append-icon="mdi-magnify"
-      label="Search"
-      single-line
-      hide-details
-    ></v-text-field>
-  </v-card-title>
-  <v-data-table-server
-    v-model:page="page"
-    :items-per-page="itemsPerPage"
-    :headers="headers"
-    :items-length="totalItems"
-    :items="serverItems"
-    :loading="loading"
-    :search="search"
-    class="elevation-0"
-    item-value="name"
-    @update:options="loadItems"
-    hide-default-footer
-  >
-    <template v-slot:bottom>
-      <div class="text-center pt-2">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-        ></v-pagination>
-      </div>
-    </template>
-  </v-data-table-server>
-  </v-card>
-</template>
-
 <script setup lang="ts">
-import {ref, computed, reactive, watch, onMounted} from 'vue'
-import { VDataTableServer } from 'vuetify/labs/VDataTable'
-import {useMainStore} from "@/stores/main"
+import {ref, computed, reactive, watch, onMounted} from "vue";
+import {VDataTableServer} from "vuetify/labs/VDataTable";
+import {useMainStore} from "@/stores/main";
 
-const { setTitle } = useMainStore()
+const {setTitle} = useMainStore()
 let page = ref(1)
 let itemsPerPage = ref(5)
 let totalItems = 15
@@ -81,7 +45,7 @@ let headers = [
     align: 'center',
     key: 'name',
   },
-  { title: 'Phone', align: 'center', key: 'phone' }
+  {title: 'Phone', align: 'center', key: 'phone'}
 ]
 
 watch([name, phone], () => {
@@ -89,7 +53,7 @@ watch([name, phone], () => {
 })
 
 const FakeAPI = {
-  async fetch ({ page, itemsPerPage, sortBy, search }: any) {
+  async fetch({page, itemsPerPage, sortBy, search}: any) {
     return new Promise(resolve => {
       setTimeout(() => {
         const start = (page - 1) * itemsPerPage
@@ -100,7 +64,6 @@ const FakeAPI = {
           }
 
           return !(search.phone.value && !item.phone.includes(search.phone.value.toLowerCase()));
-
 
         })
 
@@ -116,19 +79,21 @@ const FakeAPI = {
 
         const paginated = items.slice(start, end)
 
-        resolve({ items: paginated, total: items.length })
+        resolve({items: paginated, total: items.length})
       }, 500)
     })
   },
 }
-function loadItems ({ page, itemsPerPage, sortBy }: any) {
+
+function loadItems({page, itemsPerPage, sortBy}: any) {
   loading.value = true
-  FakeAPI.fetch({page, itemsPerPage, sortBy, search: { name: name, phone: phone } }).then(({items, total}: any) => {
+  FakeAPI.fetch({page, itemsPerPage, sortBy, search: {name: name, phone: phone}}).then(({items, total}: any) => {
     serverItems = items
     totalItems = total
     loading.value = false
   })
 }
+
 const pageCount = computed(() => {
   return Math.ceil(clients.length / itemsPerPage.value)
 })
@@ -137,3 +102,39 @@ onMounted(() => {
   setTitle('Clients')
 })
 </script>
+
+<template>
+  <v-card variant="flat" class="ma-4">
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table-server
+      v-model:page="page"
+      :items-per-page="itemsPerPage"
+      :headers="headers"
+      :items-length="totalItems"
+      :items="serverItems"
+      :loading="loading"
+      :search="search"
+      class="elevation-0"
+      item-value="name"
+      @update:options="loadItems"
+      hide-default-footer
+    >
+      <template v-slot:bottom>
+        <div class="text-center pt-2">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+          ></v-pagination>
+        </div>
+      </template>
+    </v-data-table-server>
+  </v-card>
+</template>
