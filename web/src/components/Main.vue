@@ -1,3 +1,31 @@
+<script lang="ts" setup>
+import {ref} from "vue";
+import MembersTable from "@/components/Dashboard/Members/Table.vue";
+import MembersDialog from "@/components/Dashboard/Members/DialogForm.vue";
+import {useMainStore} from "@/stores/main";
+import {storeToRefs} from "pinia";
+
+const {setActionBar} = useMainStore()
+const {actionBar} = storeToRefs(useMainStore())
+
+const currentItem = ref('tab-Members')
+const items = ref(['Members', 'Shopping', 'Videos', 'Images'])
+const more = ref(['News', 'Maps', 'Books', 'Flights', 'Apps'])
+let dialog = ref(false)
+
+function showActionsBar() {
+  setActionBar(true)
+}
+
+function showDialog() {
+  dialog.value = true
+}
+
+function closeDialog() {
+  dialog.value = false
+}
+</script>
+
 <template>
   <v-card variant="flat" flat class="ma-4">
     <v-toolbar
@@ -16,7 +44,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn icon @click.stop="showActionsBar()" v-show="actionBar">
+      <v-btn icon @click.stop="showActionsBar()" v-show="!actionBar">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
 
@@ -73,7 +101,7 @@
         <v-card flat v-if="currentItem === 'tab-Members'">
           <v-card-text>
             <div class="pa-6">
-              <MembersTable />
+              <MembersTable/>
               <MembersDialog :dialog="dialog" @close-dialog="closeDialog"/>
             </div>
           </v-card-text>
@@ -87,31 +115,3 @@
     </v-window>
   </v-card>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import MembersTable from "@/components/Dashboard/Members/Table.vue"
-import MembersDialog from "@/components/Dashboard/Members/DialogForm.vue"
-import {useMainStore} from "@/stores/main"
-import {storeToRefs} from "pinia"
-
-const { setActionBar } = useMainStore()
-const {actionBar} = storeToRefs(useMainStore())
-
-const currentItem = ref('tab-Members')
-const items = ref(['Members', 'Shopping', 'Videos', 'Images'])
-const more = ref(['News', 'Maps', 'Books', 'Flights', 'Apps'])
-let dialog = ref(false)
-
-function showActionsBar(){
-  setActionBar(true)
-}
-
-function showDialog(){
-  dialog.value = true
-}
-
-function closeDialog(){
-  dialog.value = false
-}
-</script>

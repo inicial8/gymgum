@@ -1,3 +1,39 @@
+<script lang="ts" setup>
+import {ref, onMounted, Ref} from "vue";
+import {useTheme} from "vuetify";
+import {useMainStore} from "@/stores/main";
+import {storeToRefs} from "pinia";
+
+const theme = useTheme()
+
+export interface Props {
+  version?: string
+}
+
+let loading: Ref<boolean> = ref(false)
+let year: Ref<number> = ref(20)
+let search: Ref<string> = ref('')
+let drawer = ref(true)
+let rail = ref(false)
+const {title} = storeToRefs(useMainStore())
+
+const props = withDefaults(defineProps<Props>(), {
+  version: 'expert'
+})
+
+onMounted(() => {
+  year.value = 2023
+})
+
+function handleSearch(): void {
+  loading.value = !loading.value
+}
+
+function toggleTheme() {
+  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+}
+</script>
+
 <template>
   <v-navigation-drawer
     v-model="drawer"
@@ -78,42 +114,6 @@
     </v-responsive>
   </v-app-bar>
 </template>
-
-<script lang="ts" setup>
-import {ref, onMounted, Ref} from "vue"
-import {useTheme} from 'vuetify'
-import {useMainStore} from '@/stores/main'
-import {storeToRefs} from 'pinia'
-
-const theme = useTheme()
-
-export interface Props {
-  version?: string
-}
-
-let loading: Ref<boolean> = ref(false)
-let year: Ref<number> = ref(20)
-let search: Ref<string> = ref('')
-let drawer = ref(true)
-let rail = ref(false)
-const {title} = storeToRefs(useMainStore())
-
-const props = withDefaults(defineProps<Props>(), {
-  version: 'expert'
-})
-
-onMounted(() => {
-  year.value = 2023
-})
-
-function handleSearch(): void {
-  loading.value = !loading.value
-}
-
-function toggleTheme() {
-  theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
-}
-</script>
 
 <style scoped>
 .v-theme--dark .logo {

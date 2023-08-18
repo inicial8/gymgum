@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import {defineStore} from "pinia";
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -6,7 +6,7 @@ export const useMainStore = defineStore('main', {
     actionBar: true,
     showDialog: false,
   }),
-  actions:{
+  actions: {
     async setTitle(value: string) {
       this.title = value
     },

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import { VDataTable } from 'vuetify/labs/VDataTable'
+import {ref} from "vue";
+import {VDataTable} from "vuetify/labs/VDataTable";
 
 let selected = ref([])
 let headers = ref([
@@ -101,14 +101,14 @@ let desserts = ref([
 
 <template>
   <v-data-table
-      v-model="selected"
-      class="elevation-0"
-      :headers="headers"
-      :items="desserts"
-      items-per-page="5"
-      item-value="name"
-      return-object
-      show-select
+    v-model="selected"
+    class="elevation-0"
+    :headers="headers"
+    :items="desserts"
+    items-per-page="5"
+    item-value="name"
+    return-object
+    show-select
   ></v-data-table>
   <v-card class="mt-2 pa-2" elevation="0">
     <pre>{{ selected }}</pre>

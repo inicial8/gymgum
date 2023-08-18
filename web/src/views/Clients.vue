@@ -84,12 +84,12 @@ let headers = [
   { title: 'Phone', align: 'center', key: 'phone' }
 ]
 
-watch([name, phone], (newValues, prevValues) => {
+watch([name, phone], () => {
   search.value = String(Date.now())
 })
 
 const FakeAPI = {
-  async fetch ({ page, itemsPerPage, sortBy, search }) {
+  async fetch ({ page, itemsPerPage, sortBy, search }: any) {
     return new Promise(resolve => {
       setTimeout(() => {
         const start = (page - 1) * itemsPerPage
@@ -99,17 +99,15 @@ const FakeAPI = {
             return false
           }
 
-          if (search.phone.value && !item.phone.includes(search.phone.value.toLowerCase())) {
-            return false
-          }
+          return !(search.phone.value && !item.phone.includes(search.phone.value.toLowerCase()));
 
-          return true
+
         })
 
         if (sortBy.length) {
           const sortKey = sortBy[0].key
           const sortOrder = sortBy[0].order
-          items.sort((a, b) => {
+          items.sort((a: any, b: any) => {
             const aValue = a[sortKey]
             const bValue = b[sortKey]
             return sortOrder === 'desc' ? bValue - aValue : aValue - bValue
@@ -123,9 +121,9 @@ const FakeAPI = {
     })
   },
 }
-function loadItems ({ page, itemsPerPage, sortBy }) {
+function loadItems ({ page, itemsPerPage, sortBy }: any) {
   loading.value = true
-  FakeAPI.fetch({page, itemsPerPage, sortBy, search: { name: name, phone: phone } }).then(({items, total}) => {
+  FakeAPI.fetch({page, itemsPerPage, sortBy, search: { name: name, phone: phone } }).then(({items, total}: any) => {
     serverItems = items
     totalItems = total
     loading.value = false

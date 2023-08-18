@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {toRef} from 'vue'
+import {toRef} from "vue";
 
 let props = defineProps(['dialog'])
 let dialog = toRef(props, 'dialog')
@@ -8,9 +8,9 @@ let dialog = toRef(props, 'dialog')
 <template>
   <v-row justify="center">
     <v-dialog
-        v-model="dialog"
-        width="1024"
-        persistent
+      v-model="dialog"
+      width="1024"
+      persistent
     >
       <v-card>
         <v-card-title>
@@ -20,68 +20,68 @@ let dialog = toRef(props, 'dialog')
           <v-container>
             <v-row>
               <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
+                cols="12"
+                sm="6"
+                md="4"
               >
                 <v-text-field
-                    label="Legal first name*"
-                    required
+                  label="Legal first name*"
+                  required
                 ></v-text-field>
               </v-col>
               <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
+                cols="12"
+                sm="6"
+                md="4"
               >
                 <v-text-field
-                    label="Legal middle name"
-                    hint="example of helper text only on focus"
+                  label="Legal middle name"
+                  hint="example of helper text only on focus"
                 ></v-text-field>
               </v-col>
               <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
+                cols="12"
+                sm="6"
+                md="4"
               >
                 <v-text-field
-                    label="Legal last name*"
-                    hint="example of persistent helper text"
-                    persistent-hint
-                    required
+                  label="Legal last name*"
+                  hint="example of persistent helper text"
+                  persistent-hint
+                  required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                    label="Email*"
-                    required
+                  label="Email*"
+                  required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                    label="Password*"
-                    type="password"
-                    required
+                  label="Password*"
+                  type="password"
+                  required
                 ></v-text-field>
               </v-col>
               <v-col
-                  cols="12"
-                  sm="6"
+                cols="12"
+                sm="6"
               >
                 <v-select
-                    :items="['0-17', '18-29', '30-54', '54+']"
-                    label="Age*"
-                    required
+                  :items="['0-17', '18-29', '30-54', '54+']"
+                  label="Age*"
+                  required
                 ></v-select>
               </v-col>
               <v-col
-                  cols="12"
-                  sm="6"
+                cols="12"
+                sm="6"
               >
                 <v-autocomplete
-                    :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                    label="Interests"
-                    multiple
+                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                  label="Interests"
+                  multiple
                 ></v-autocomplete>
               </v-col>
             </v-row>
@@ -91,16 +91,16 @@ let dialog = toRef(props, 'dialog')
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-              color="blue-darken-1"
-              variant="text"
-              @click="$emit('closeDialog')"
+            color="blue-darken-1"
+            variant="text"
+            @click="$emit('closeDialog')"
           >
             Close
           </v-btn>
           <v-btn
-              color="blue-darken-1"
-              variant="text"
-              @click="$emit('closeDialog')"
+            color="blue-darken-1"
+            variant="text"
+            @click="$emit('closeDialog')"
           >
             Save
           </v-btn>

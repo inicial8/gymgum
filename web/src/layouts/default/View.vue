@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+//
+</script>
+
 <template>
   <v-main>
     <router-view v-slot="{ Component, route }">
@@ -7,10 +11,6 @@
     </router-view>
   </v-main>
 </template>
-
-<script lang="ts" setup>
-//
-</script>
 
 <style>
 .slide-in-down-enter-active,
