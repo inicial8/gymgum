@@ -8,12 +8,13 @@
           <v-list-item
             v-for="n in 6"
             :key="n"
-            :title="`Item ${ n }`"
+            :title="`Action ${ n }`"
             link
           >
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
+      <div>Action results</div>
     </v-responsive>
   </v-container>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <v-footer height="200">
+  <v-footer height="150">
     <v-row justify="center" no-gutters>
       <v-btn
         variant="text"
