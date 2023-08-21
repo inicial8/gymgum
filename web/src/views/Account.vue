@@ -109,6 +109,12 @@ let desserts = [
 let pageCount = computed(() => {
   return Math.ceil(desserts.length / itemsPerPage.value)
 })
+
+function getColor (calories: any) {
+  if (calories > 400) return 'red'
+  else if (calories > 200) return 'orange'
+  else return 'green'
+}
 </script>
 
 <template>
@@ -121,6 +127,11 @@ let pageCount = computed(() => {
     hide-default-footer
     class="elevation-0"
   >
+    <template v-slot:item.calories="{ item }">
+      <v-chip :color="getColor(item.columns.calories)">
+        {{ item.columns.calories }}
+      </v-chip>
+    </template>
     <template v-slot:bottom>
       <div class="text-center pt-2">
         <v-pagination
@@ -140,6 +151,15 @@ let pageCount = computed(() => {
       </div>
     </template>
   </v-data-table>
+    <v-card-title>My total weight: 120kg</v-card-title>
+    <v-card-text>
+      <v-alert
+      color="error"
+      icon="$error"
+      title="Your weight is too big."
+      text="Try to eat less high-calorie foods. More proteins and vitamins. Perform exercises with minimal load, but with a high frequency of sets in each exercise."
+    ></v-alert>
+    </v-card-text>
   </v-card>
 </template>
 

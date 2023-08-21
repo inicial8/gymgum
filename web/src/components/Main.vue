@@ -14,7 +14,8 @@ const more = ref(['News', 'Maps', 'Books', 'Flights', 'Apps'])
 let dialog = ref(false)
 
 function showActionsBar() {
-  setActionBar(true)
+  let bar = !actionBar.value
+  setActionBar(bar)
 }
 
 function showDialog() {
@@ -44,7 +45,7 @@ function closeDialog() {
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn icon @click.stop="showActionsBar()" v-show="!actionBar">
+      <v-btn icon @click.stop="showActionsBar">
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
 
