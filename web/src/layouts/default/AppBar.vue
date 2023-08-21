@@ -3,15 +3,10 @@ import {ref, onMounted, Ref} from "vue";
 import {useTheme} from "vuetify";
 import {useMainStore} from "@/stores/main";
 import {storeToRefs} from "pinia";
-import router from "@/router";
 
 const {user, isAuthenticated} = storeToRefs(useMainStore())
 
 const theme = useTheme()
-
-export interface Props {
-  version?: string
-}
 
 let loading: Ref<boolean> = ref(false)
 let year: Ref<number> = ref(20)
@@ -19,10 +14,6 @@ let search: Ref<string> = ref('')
 let drawer = ref(true)
 let rail = ref(false)
 const {title} = storeToRefs(useMainStore())
-
-const props = withDefaults(defineProps<Props>(), {
-  version: 'expert'
-})
 
 onMounted(() => {
   year.value = 2023
@@ -39,7 +30,7 @@ function toggleTheme() {
 function logout() {
   localStorage.removeItem('user')
   localStorage.removeItem('role')
-  router.push('/login')
+  window.location.reload()
 }
 </script>
 
@@ -102,7 +93,7 @@ function logout() {
 
       <v-tooltip text="Logout" location="bottom" v-else>
         <template v-slot:activator="{ props }">
-          <v-btn icon="mdi-logout" class="ml-1" v-bind="props" @click.stop="logout"></v-btn>
+          <v-btn icon="mdi-logout" class="ml-1" v-bind="props" @click="logout"></v-btn>
         </template>
       </v-tooltip>
 

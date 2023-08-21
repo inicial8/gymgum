@@ -14,9 +14,9 @@ function auth() {
 
 <template>
   <div class="d-flex align-center justify-center" style="height: 110vh">
-    <v-sheet width="400" class="mx-auto">
+    <v-sheet width="400" class="mx-auto" style="background-color: transparent">
       <div class="d-flex align-center justify-center">
-        <img src="@/assets/gg-logo-96.png" class="logo" alt="Hexa|Gym"/>
+        <img src="@/assets/gg-logo-96.png" class="logo" color="transparent" alt="Hexa|Gym"/>
       </div>
     </v-sheet>
     <v-sheet width="600" class="mx-auto pa-12" style="border-left: 1px solid #efefef">
