@@ -36,7 +36,7 @@ let dialog = toRef(props, 'dialog')
               >
                 <v-text-field
                   label="Legal middle name"
-                  hint="example of helper text only on focus"
+                  hint="not necessary"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -46,7 +46,7 @@ let dialog = toRef(props, 'dialog')
               >
                 <v-text-field
                   label="Legal last name*"
-                  hint="example of persistent helper text"
+                  hint="*please do not ignore this field"
                   persistent-hint
                   required
                 ></v-text-field>
@@ -79,9 +79,8 @@ let dialog = toRef(props, 'dialog')
                 sm="6"
               >
                 <v-autocomplete
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                  :items="['Grappling', 'Box', 'Stretching', 'Basketball', 'Basejump']"
                   label="Interests"
-                  multiple
                 ></v-autocomplete>
               </v-col>
             </v-row>

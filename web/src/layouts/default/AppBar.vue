@@ -36,7 +36,7 @@ function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
 
-function logout () {
+function logout() {
   localStorage.removeItem('user')
   localStorage.removeItem('role')
   router.push('/login')
@@ -69,9 +69,11 @@ function logout () {
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="dashboards" to="/" v-if="user.role === 'admin'"></v-list-item>
-      <v-list-item prepend-icon="mdi-account" title="My Account" value="account" to="/account" v-if="user.role === 'admin' || user.role === 'client'"></v-list-item>
-      <v-list-item prepend-icon="mdi-account-group-outline" title="Clients" value="clients" to="/clients" v-if="user.role === 'admin'"></v-list-item>
+      <v-list-item prepend-icon="mdi-monitor-dashboard" title="Dashboard" value="dashboards" to="/"></v-list-item>
+      <v-list-item prepend-icon="mdi-account" title="My Account" value="account" to="/account"
+                   v-if="user.role === 'admin' || user.role === 'client'"></v-list-item>
+      <v-list-item prepend-icon="mdi-account-group-outline" title="Clients" value="clients" to="/clients"
+                   v-if="user.role === 'admin'"></v-list-item>
     </v-list>
   </v-navigation-drawer>
   <v-app-bar

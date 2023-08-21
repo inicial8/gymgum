@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useStorage } from "@vueuse/core";
+import {useStorage} from "@vueuse/core";
 import {watch} from "vue";
 
 const theDefault = {
@@ -14,7 +14,7 @@ watch(state, () => {
 </script>
 
 <template>
-  <router-view />
+  <router-view/>
 </template>
 
 <style>

@@ -52,7 +52,7 @@ const routes = [
     ],
     beforeEnter: (to: any, from: any) => {
       const {user} = storeToRefs(useMainStore())
-      if (!(user.value.role === 'client')) return {name: from.name}
+      if (!(user.value.role === 'client' || user.value.role === 'admin')) return {name: from.name}
     },
   },
   {path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound},
