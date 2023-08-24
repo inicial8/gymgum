@@ -2,13 +2,14 @@
 import {ref} from "vue";
 import MembersTable from "@/components/Dashboard/Members/Table.vue";
 import MembersDialog from "@/components/Dashboard/Members/DialogForm.vue";
+import ShoppingMain from "@/components/Dashboard/Shopping/Main.vue";
 import {useMainStore} from "@/stores/main";
 import {storeToRefs} from "pinia";
 
 const {setActionBar} = useMainStore()
 const {actionBar} = storeToRefs(useMainStore())
 
-const currentItem = ref('tab-Members')
+const currentItem = ref('tab-Shopping')
 const items = ref(['Members', 'Shopping', 'Videos', 'Images'])
 const more = ref(['News', 'Maps', 'Books', 'Flights', 'Apps'])
 let dialog = ref(false)
@@ -108,9 +109,7 @@ function closeDialog() {
           </v-card-text>
         </v-card>
         <v-card flat v-if="currentItem === 'tab-Shopping'">
-          <v-card-text>
-            ShoppingComponent
-          </v-card-text>
+          <ShoppingMain />
         </v-card>
       </v-window-item>
     </v-window>

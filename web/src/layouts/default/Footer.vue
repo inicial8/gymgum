@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-footer style="height: 80px;max-height: 80px;">
+  <v-footer>
     <v-row justify="center" no-gutters>
       <v-col class="text-center" cols="8">
       <v-btn
