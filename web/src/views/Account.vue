@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import {ref, computed, onMounted} from "vue";
-import { VDataTable } from "vuetify/labs/VDataTable";
-import { useMainStore } from "@/stores/main";
+import {ref, computed, onMounted, Ref} from "vue";
+import {VDataTable} from "vuetify/labs/VDataTable";
+import {useMainStore} from "@/stores/main";
 
-const { setTitle } = useMainStore()
+const {setTitle}: any = useMainStore()
 
 onMounted(() => {
   setTitle('My Account')
 })
 
-let page = ref(1)
-let itemsPerPage = ref(5)
-let headers = [
+let page: Ref<number> = ref(1)
+let itemsPerPage: Ref<number> = ref(5)
+let headers: object[] = [
   {
     align: 'start',
     key: 'name',
     sortable: false,
     title: 'Dessert (100g serving)',
   },
-  { title: 'Calories', key: 'calories' },
-  { title: 'Fat (g)', key: 'fat' },
-  { title: 'Carbs (g)', key: 'carbs' },
-  { title: 'Protein (g)', key: 'protein' },
-  { title: 'Iron (%)', key: 'iron' },
+  {title: 'Calories', key: 'calories'},
+  {title: 'Fat (g)', key: 'fat'},
+  {title: 'Carbs (g)', key: 'carbs'},
+  {title: 'Protein (g)', key: 'protein'},
+  {title: 'Iron (%)', key: 'iron'},
 ]
-let desserts = [
+let desserts: object[] = [
   {
     name: 'Frozen Yogurt',
     calories: 159,
@@ -106,11 +106,11 @@ let desserts = [
     iron: 6,
   },
 ]
-let pageCount = computed(() => {
+let pageCount: any = computed(() => {
   return Math.ceil(desserts.length / itemsPerPage.value)
 })
 
-function getColor (calories: any) {
+function getColor(calories: any): string {
   if (calories > 400) return 'red'
   else if (calories > 200) return 'orange'
   else return 'green'
@@ -119,46 +119,46 @@ function getColor (calories: any) {
 
 <template>
   <v-card variant="flat" class="ma-4">
-  <v-data-table
-    v-model:page="page"
-    :headers="headers"
-    :items="desserts"
-    :items-per-page="itemsPerPage"
-    hide-default-footer
-    class="elevation-0"
-  >
-    <template v-slot:item.calories="{ item }">
-      <v-chip :color="getColor(item.columns.calories)">
-        {{ item.columns.calories }}
-      </v-chip>
-    </template>
-    <template v-slot:bottom>
-      <div class="text-center pt-2">
-        <v-pagination
-          v-model="page"
-          :length="pageCount"
-        ></v-pagination>
-        <v-text-field
-          :model-value="itemsPerPage"
-          class="pa-2"
-          label="Items per page"
-          type="number"
-          min="-1"
-          max="15"
-          hide-details
-          @update:model-value="itemsPerPage = parseInt($event, 10)"
-        ></v-text-field>
-      </div>
-    </template>
-  </v-data-table>
+    <v-data-table
+        v-model:page="page"
+        :headers="headers"
+        :items="desserts"
+        :items-per-page="itemsPerPage"
+        hide-default-footer
+        class="elevation-0"
+    >
+      <template v-slot:item.calories="{ item }">
+        <v-chip :color="getColor(item.columns.calories)">
+          {{ item.columns.calories }}
+        </v-chip>
+      </template>
+      <template v-slot:bottom>
+        <div class="text-center pt-2">
+          <v-pagination
+              v-model="page"
+              :length="pageCount"
+          ></v-pagination>
+          <v-text-field
+              :model-value="itemsPerPage"
+              class="pa-2"
+              label="Items per page"
+              type="number"
+              min="-1"
+              max="15"
+              hide-details
+              @update:model-value="itemsPerPage = parseInt($event, 10)"
+          ></v-text-field>
+        </div>
+      </template>
+    </v-data-table>
     <v-card-title>My total weight: 120kg</v-card-title>
     <v-card-text>
       <v-alert
-      color="error"
-      icon="$error"
-      title="Your weight is too big."
-      text="Try to eat less high-calorie foods. More proteins and vitamins. Perform exercises with minimal load, but with a high frequency of sets in each exercise."
-    ></v-alert>
+          color="error"
+          icon="$error"
+          title="Your weight is too big."
+          text="Try to eat less high-calorie foods. More proteins and vitamins. Perform exercises with minimal load, but with a high frequency of sets in each exercise."
+      ></v-alert>
     </v-card-text>
   </v-card>
 </template>

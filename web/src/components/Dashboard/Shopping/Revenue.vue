@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {reactive, computed} from "vue";
 
-const options = computed(() => {
+const options: any = computed(() => {
   return {
     chart: {
       type: 'bar',
@@ -25,7 +25,7 @@ const options = computed(() => {
   }
 })
 
-const series = reactive([{
+const series: object[] = reactive([{
   name: 'Revenue',
   data: [3000, 4000, 4500, 5000, 4900, 6000, 7000, 9100]
 }])

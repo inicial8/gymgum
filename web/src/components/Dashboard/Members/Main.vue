@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import {ref} from "vue";
+import {ref, Ref} from "vue";
 import MembersTable from "@/components/Dashboard/Members/Table.vue";
 import MembersDialog from "@/components/Dashboard/Members/DialogForm.vue";
 import ShoppingMain from "@/components/Dashboard/Shopping/Main.vue";
 import {useMainStore} from "@/stores/main";
 import {storeToRefs} from "pinia";
 
-const {setActionBar} = useMainStore()
-const {actionBar} = storeToRefs(useMainStore())
+const {setActionBar}: any = useMainStore()
+const {actionBar}: any = storeToRefs(useMainStore())
 
-const currentItem = ref('tab-Shopping')
-const items = ref(['Members', 'Shopping', 'Videos', 'Images'])
-const more = ref(['News', 'Maps', 'Books', 'Flights', 'Apps'])
-let dialog = ref(false)
+const currentItem: Ref<string> = ref('tab-Members')
+const items: Ref<string[]> = ref(['Members', 'Shopping', 'Videos', 'Images'])
+const more: Ref<string[]> = ref(['News', 'Maps', 'Books', 'Flights', 'Apps'])
+let dialog: Ref<boolean> = ref(false)
 
-function showActionsBar() {
+function showActionsBar(): void {
   let bar = !actionBar.value
   setActionBar(bar)
 }
 
-function showDialog() {
+function showDialog(): void {
   dialog.value = true
 }
 
-function closeDialog() {
+function closeDialog(): void {
   dialog.value = false
 }
 </script>
@@ -33,7 +33,6 @@ function closeDialog() {
     <v-toolbar
       color="gray"
     >
-
       <v-toolbar-title>Your dashboards</v-toolbar-title>
 
       <v-spacer></v-spacer>

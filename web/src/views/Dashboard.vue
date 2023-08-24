@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import Main from "@/components/Main.vue";
+import Main from "@/components/Dashboard/Members/Main.vue";
 import {useMainStore} from "@/stores/main";
 import {onMounted} from "vue";
 
-const {setTitle} = useMainStore()
+const {setTitle}: any = useMainStore()
 
 onMounted(() => {
   setTitle('Dashboard')

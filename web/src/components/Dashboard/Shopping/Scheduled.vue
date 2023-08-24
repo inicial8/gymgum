@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const options = {
+const options: object = {
   chart: {
     type: 'radialBar'
   },
@@ -8,7 +8,7 @@ const options = {
   },
 }
 
-const series = [30]
+const series: number[] = [30]
 </script>
 
 <template>

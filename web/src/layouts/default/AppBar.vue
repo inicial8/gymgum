@@ -4,16 +4,16 @@ import {useTheme} from "vuetify";
 import {useMainStore} from "@/stores/main";
 import {storeToRefs} from "pinia";
 
-const {user, isAuthenticated} = storeToRefs(useMainStore())
+const {user, isAuthenticated}: any = storeToRefs(useMainStore())
 
-const theme = useTheme()
+const theme: any = useTheme()
 
 let loading: Ref<boolean> = ref(false)
 let year: Ref<number> = ref(20)
 let search: Ref<string> = ref('')
-let drawer = ref(true)
-let rail = ref(false)
-const {title} = storeToRefs(useMainStore())
+let drawer: Ref<boolean> = ref(true)
+let rail: Ref<boolean> = ref(false)
+const {title}: any = storeToRefs(useMainStore())
 
 onMounted(() => {
   year.value = 2023
@@ -23,11 +23,12 @@ function handleSearch(): void {
   loading.value = !loading.value
 }
 
-function toggleTheme() {
+function toggleTheme(): void {
+  localStorage.setItem('theme', theme.global.current.value.dark ? 'light' : 'dark')
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
 
-function logout() {
+function logout(): void {
   localStorage.removeItem('user')
   localStorage.removeItem('role')
   window.location.reload()
@@ -36,23 +37,23 @@ function logout() {
 
 <template>
   <v-navigation-drawer
-    v-model="drawer"
-    :rail="rail"
-    @click="rail = false"
-    location="left"
+      v-model="drawer"
+      :rail="rail"
+      @click="rail = false"
+      location="left"
   >
     <v-list-item
-      prepend-avatar="@/assets/gg-logo-96.png"
-      nav
-      class="logo"
+        prepend-avatar="@/assets/gg-logo-96.png"
+        nav
+        class="logo"
     >
       <template v-slot:append>
         <strong class="logo">Hexa|Gym expert</strong>
         <v-btn
-          class="logo"
-          variant="text"
-          icon="mdi-chevron-left"
-          @click.stop="rail = !rail"
+            class="logo"
+            variant="text"
+            icon="mdi-chevron-left"
+            @click.stop="rail = !rail"
         ></v-btn>
       </template>
     </v-list-item>
@@ -68,13 +69,13 @@ function logout() {
     </v-list>
   </v-navigation-drawer>
   <v-app-bar
-    color="blue-accent-2"
-    flat
-    height="56"
+      color="blue-accent-2"
+      flat
+      height="56"
   >
     <v-btn
-      icon="mdi-menu"
-      @click.stop="drawer = !drawer"
+        icon="mdi-menu"
+        @click.stop="drawer = !drawer"
     />
     <v-app-bar-title><strong>{{ title }}</strong></v-app-bar-title>
     <template v-slot:append>
@@ -103,18 +104,18 @@ function logout() {
 
     <v-responsive max-width="250">
       <v-text-field
-        v-model="search"
-        label="Search"
-        placeholder="Start typing for search"
-        variant="plain"
-        @change="handleSearch"
+          v-model="search"
+          label="Search"
+          placeholder="Start typing for search"
+          variant="plain"
+          @change="handleSearch"
       >
         <template v-slot:append-inner>
           <v-progress-circular
-            v-if="loading"
-            color="loading"
-            indeterminate
-            size="22"
+              v-if="loading"
+              color="loading"
+              indeterminate
+              size="22"
           ></v-progress-circular>
 
           <v-icon v-if="!loading">mdi-magnify</v-icon>

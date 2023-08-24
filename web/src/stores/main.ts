@@ -15,16 +15,16 @@ export const useMainStore = defineStore('main', {
     user: {name: localStorage.getItem('user'), role: localStorage.getItem('role')} as IUser
   }),
   actions: {
-    async setTitle(value: string) {
+    async setTitle(value: string): Promise<void> {
       this.title = value
     },
-    async setActionBar(value: boolean) {
+    async setActionBar(value: boolean): Promise<void> {
       this.actionBar = value
     },
-    async setShowDialog(value: boolean) {
+    async setShowDialog(value: boolean): Promise<void> {
       this.showDialog = value
     },
-    async login(username: string, password: string) {
+    async login(username: string, password: string): Promise<void> {
       fetch('http://127.0.0.1:8000/auth', {
         method: 'POST',
         body: JSON.stringify({username: username, password: password})

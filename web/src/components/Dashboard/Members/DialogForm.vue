@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {toRef} from "vue";
 
-let props = defineProps(['dialog'])
-let dialog = toRef(props, 'dialog')
+let props: any = defineProps(['dialog'])
+let dialog: any = toRef(props, 'dialog')
 </script>
 
 <template>

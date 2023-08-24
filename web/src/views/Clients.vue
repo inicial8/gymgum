@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import {ref, computed, reactive, watch, onMounted} from "vue";
+import {ref, computed, reactive, watch, onMounted, Ref} from "vue";
 import {VDataTableServer} from "vuetify/labs/VDataTable";
 import {useMainStore} from "@/stores/main";
 
-const {setTitle} = useMainStore()
-let page = ref(1)
-let itemsPerPage = ref(5)
-let totalItems = 15
-let search = ref('')
-let name = ref('')
-let phone = ref('')
-let serverItems = reactive([])
-let loading = ref(false)
-let clients = reactive([
+const {setTitle}: any = useMainStore()
+let page: Ref<number> = ref(1)
+let itemsPerPage: Ref<number> = ref(5)
+let totalItems: number = 15
+let search: Ref<string> = ref('')
+let name: Ref<string> = ref('')
+let phone: Ref<string> = ref('')
+let serverItems: any[] = reactive([])
+let loading: Ref<boolean> = ref(false)
+let clients: object[] = reactive([
   {
     name: 'test test',
     phone: '555-55-55',
@@ -39,7 +39,7 @@ let clients = reactive([
   }
 ])
 
-let headers = [
+let headers: object[] = [
   {
     title: 'Name',
     align: 'center',
@@ -62,9 +62,7 @@ const FakeAPI = {
           if (search.name.value && !item.name.toLowerCase().includes(search.name.value.toLowerCase())) {
             return false
           }
-
           return !(search.phone.value && !item.phone.includes(search.phone.value.toLowerCase()));
-
         })
 
         if (sortBy.length) {
@@ -85,7 +83,7 @@ const FakeAPI = {
   },
 }
 
-function loadItems({page, itemsPerPage, sortBy}: any) {
+function loadItems({page, itemsPerPage, sortBy}: any): void {
   loading.value = true
   FakeAPI.fetch({page, itemsPerPage, sortBy, search: {name: name, phone: phone}}).then(({items, total}: any) => {
     serverItems = items
@@ -107,31 +105,31 @@ onMounted(() => {
   <v-card variant="flat" class="ma-4">
     <v-card-title>
       <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
       ></v-text-field>
     </v-card-title>
     <v-data-table-server
-      v-model:page="page"
-      :items-per-page="itemsPerPage"
-      :headers="headers"
-      :items-length="totalItems"
-      :items="serverItems"
-      :loading="loading"
-      :search="search"
-      class="elevation-0"
-      item-value="name"
-      @update:options="loadItems"
-      hide-default-footer
+        v-model:page="page"
+        :items-per-page="itemsPerPage"
+        :headers="headers"
+        :items-length="totalItems"
+        :items="serverItems"
+        :loading="loading"
+        :search="search"
+        class="elevation-0"
+        item-value="name"
+        @update:options="loadItems"
+        hide-default-footer
     >
       <template v-slot:bottom>
         <div class="text-center pt-2">
           <v-pagination
-            v-model="page"
-            :length="pageCount"
+              v-model="page"
+              :length="pageCount"
           ></v-pagination>
         </div>
       </template>

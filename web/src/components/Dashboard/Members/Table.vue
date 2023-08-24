@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, ref, Ref} from "vue";
 import {VDataTable} from "vuetify/labs/VDataTable";
 
-let selected = ref([])
-let members = ref([])
-let headers = ref([
+let selected: Ref<object[]> = ref([])
+let members: Ref<object[]> = ref([])
+let headers: Ref<object[]> = ref([
   {
     title: 'Firstname',
     align: 'start',
@@ -18,7 +18,7 @@ let headers = ref([
   {title: 'Interest', align: 'end', key: 'interest'},
 ])
 
-async function getMembers () {
+async function getMembers (): Promise<void> {
   const response = await fetch("http://127.0.0.1:8000/members")
   members.value = await response.json()
 }

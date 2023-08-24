@@ -1,8 +1,8 @@
 import {storeToRefs} from "pinia";
 import {useMainStore} from "@/stores/main";
-import {createRouter, createWebHistory} from "vue-router";
+import {createRouter, createWebHistory, Router} from "vue-router";
 
-const NotFound = {template: '<h2>Page Not Found</h2>'}
+const NotFound: {template: string} = {template: '<h2>Page Not Found</h2>'}
 
 const routes = [
   {
@@ -58,7 +58,7 @@ const routes = [
   {path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound},
 ]
 
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
