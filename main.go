@@ -89,7 +89,8 @@ func main() {
 	r := mux.NewRouter()
 	// added Users
 	users = append(users, User{ID: "1", Name: "assambly", Role: "admin"})
-	users = append(users, User{ID: "2", Name: "r.mordvinov", Role: "admin"})
+	users = append(users, User{ID: "2", Name: "client", Role: "client"})
+	users = append(users, User{ID: "3", Name: "r.mordvinov", Role: "admin"})
 	r.HandleFunc("/users", getUsers).Methods("GET")
 	r.HandleFunc("/user/{id}", getUser).Methods("GET")
 	// added Members

@@ -2,7 +2,6 @@
 import DefaultBar from "./AppBar.vue";
 import DefaultView from "./View.vue";
 import DefaultFooter from "./Footer.vue";
-import DefaultRightBar from "./RightBar.vue";
 </script>
 
 <template>
@@ -10,7 +9,6 @@ import DefaultRightBar from "./RightBar.vue";
     <default-bar/>
 
     <default-view/>
-    <default-right-bar/>
 
     <default-footer/>
   </v-app>

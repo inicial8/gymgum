@@ -18,8 +18,8 @@ let headers: Ref<object[]> = ref([
   {title: 'Interest', align: 'end', key: 'interest'},
 ])
 
-async function getMembers (): Promise<void> {
-  const response = await fetch("http://127.0.0.1:8000/members")
+async function getMembers(): Promise<void> {
+  const response = await fetch('http://localhost:8000/members')
   members.value = await response.json()
 }
 

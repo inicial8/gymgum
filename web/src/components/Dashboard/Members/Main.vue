@@ -5,6 +5,7 @@ import MembersDialog from "@/components/Dashboard/Members/DialogForm.vue";
 import ShoppingMain from "@/components/Dashboard/Shopping/Main.vue";
 import {useMainStore} from "@/stores/main";
 import {storeToRefs} from "pinia";
+import RightBar from "@/components/Dashboard/Members/RightBar.vue";
 
 const {setActionBar}: any = useMainStore()
 const {actionBar}: any = storeToRefs(useMainStore())
@@ -108,9 +109,10 @@ function closeDialog(): void {
           </v-card-text>
         </v-card>
         <v-card flat v-if="currentItem === 'tab-Shopping'">
-          <ShoppingMain />
+          <ShoppingMain/>
         </v-card>
       </v-window-item>
     </v-window>
   </v-card>
+  <right-bar/>
 </template>
