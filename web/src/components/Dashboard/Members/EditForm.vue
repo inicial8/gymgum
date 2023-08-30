@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {toRef} from "vue";
-import {useField, useForm} from "vee-validate";
+import {useField} from "vee-validate";
 import {useMembersStore} from "@/stores/members";
 import {IMember} from "@/models/member.model";
 
@@ -13,51 +13,16 @@ const {value}: any = useField('email')
 let props: any = defineProps(['dialog', 'member'])
 let dialog: any = toRef(props, 'dialog')
 
-const {handleSubmit} = useForm({
-  validationSchema: {
-    firstname(value: string | any[]): string | boolean {
-      if (value?.length >= 2) return true
-      return "First name needs to be at least 2 characters."
-    },
-    code(value: string | any[]): string | boolean {
-      if (value?.length >= 4) return true
-      return "Code needs to be at least 4 characters."
-    },
-    email(value: string): string | boolean {
-      if (value?.length >= 3) return true
-      return "Email needs to be at least 3 characters."
-    },
-  },
-})
+let member: IMember = {...memberStore.member}
 
-let email: any = useField("email")
-let code: any = useField("code")
-const firstname: any = useField("firstname")
-const middlename: any = useField("middlename")
-const lastname: any = useField("lastname")
-const age: any = useField("age")
-const interest: any = useField("interest")
-
-const submit: any = handleSubmit((values, actions) => {
-  const member: IMember = {
-    id: 0,
-    firstname: firstname.value.value,
-    middlename: middlename.value.value,
-    lastname: lastname.value.value,
-    email: email.value.value,
-    code: code.value.value,
-    age: age.value.value,
-    interest: interest.value.value
-  }
-  fetch('http://127.0.0.1:8000/member', {
+const submit: any = () => {
+  console.log(JSON.stringify(memberStore.member))
+  fetch(`http://127.0.0.1:8000/member/${memberStore.member.id}`, {
     method: 'POST',
-    body: JSON.stringify(member)
-  })
-      .then(response => response.json())
-      .then(() => memberStore.getMembers())
+    body: JSON.stringify(memberStore.member)
+  }).then(() => memberStore.getMembers())
       .then(() => emit('closeDialog'))
-  actions.resetForm()
-})
+}
 </script>
 
 <template>
@@ -66,7 +31,7 @@ const submit: any = handleSubmit((values, actions) => {
       <v-form @submit.prevent="submit()">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Add Member</span>
+            <span class="text-h5">Edit Member</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -79,8 +44,7 @@ const submit: any = handleSubmit((values, actions) => {
                   <v-text-field
                       label="Legal first name*"
                       required
-                      v-model="firstname.value.value"
-                      :error-messages="firstname.errorMessage.value"
+                      v-model="memberStore.member.firstname"
                       name="firstname"
                       variant="underlined"
                       hide-details
@@ -94,8 +58,7 @@ const submit: any = handleSubmit((values, actions) => {
                   <v-text-field
                       label="Legal middle name"
                       hint="not necessary"
-                      v-model="middlename.value.value"
-                      :error-messages="middlename.errorMessage.value"
+                      v-model="memberStore.member.middlename"
                       variant="underlined"
                   ></v-text-field>
                 </v-col>
@@ -109,8 +72,7 @@ const submit: any = handleSubmit((values, actions) => {
                       hint="*please do not ignore this field"
                       persistent-hint
                       required
-                      v-model="lastname.value.value"
-                      :error-messages="lastname.errorMessage.value"
+                      v-model="memberStore.member.lastname"
                       variant="underlined"
                   ></v-text-field>
                 </v-col>
@@ -118,10 +80,9 @@ const submit: any = handleSubmit((values, actions) => {
                   <v-text-field
                       label="Email*"
                       required
-                      v-model="email.value.value"
+                      v-model="memberStore.member.email"
                       name="email"
                       prepend-inner-icon="mdi-email"
-                      :error-messages="email.errorMessage.value"
                       variant="underlined"
                   ></v-text-field>
                 </v-col>
@@ -130,9 +91,8 @@ const submit: any = handleSubmit((values, actions) => {
                       label="Code*"
                       type="password"
                       name="code"
-                      v-model="code.value.value"
+                      v-model="memberStore.member.code"
                       prepend-inner-icon="mdi-key"
-                      :error-messages="code.errorMessage.value"
                       required
                       variant="underlined"
                   ></v-text-field>
@@ -145,8 +105,7 @@ const submit: any = handleSubmit((values, actions) => {
                       :items="['0-17', '18-29', '30-54', '54+']"
                       label="Age*"
                       required
-                      v-model="age.value.value"
-                      :error-messages="age.errorMessage.value"
+                      v-model="memberStore.member.age"
                       variant="underlined"
                   ></v-select>
                 </v-col>
@@ -157,8 +116,7 @@ const submit: any = handleSubmit((values, actions) => {
                   <v-autocomplete
                       :items="['Grappling', 'Box', 'Stretching', 'Basketball', 'Basejump']"
                       label="Interests"
-                      v-model="interest.value.value"
-                      :error-messages="interest.errorMessage.value"
+                      v-model="memberStore.member.interest"
                       variant="underlined"
                   ></v-autocomplete>
                 </v-col>

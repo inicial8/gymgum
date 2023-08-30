@@ -50,26 +50,26 @@ const submit: any = handleSubmit(() => {
       <h2 class="d-flex align-center justify-center pb-4">Welcome to Hexa|Gym expert!</h2>
       <v-form fast-fail @submit="submit">
         <v-text-field
-            class="pa-1"
-            variant="outlined"
-            v-model="username.value.value"
-            label="Username"
-            name="username"
-            prepend-inner-icon="mdi-account-outline"
-            :error-messages="username.errorMessage.value"
+          class="pa-1"
+          variant="outlined"
+          v-model="username.value.value"
+          label="Username"
+          name="username"
+          prepend-inner-icon="mdi-account-outline"
+          :error-messages="username.errorMessage.value"
         ></v-text-field>
 
         <v-text-field
-            class="pa-1"
-            variant="outlined"
-            v-model="password.value.value"
-            label="Password"
-            :type="visible ? 'text' : 'password'"
-            prepend-inner-icon="mdi-lock-outline"
-            :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-            @click:append-inner="visible = !visible"
-            :error-messages="password.errorMessage.value"
-            name="password"
+          class="pa-1"
+          variant="outlined"
+          v-model="password.value.value"
+          label="Password"
+          :type="visible ? 'text' : 'password'"
+          prepend-inner-icon="mdi-lock-outline"
+          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          @click:append-inner="visible = !visible"
+          :error-messages="password.errorMessage.value"
+          name="password"
         ></v-text-field>
         <a href="#" class="font-weight-regular">Forgot Password?</a>
 
@@ -78,9 +78,9 @@ const submit: any = handleSubmit(() => {
         </span>
 
         <v-btn type="submit" variant="plain" color="primary" block class="mt-2"
-               :disabled="password === '' && username === ''">Sign in
+               :disabled="password === '' && username === ''">
+          Sign in
         </v-btn>
-
       </v-form>
     </v-sheet>
   </div>

@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 	"log"
+	"math/rand"
 	"net/http"
+	"strconv"
 )
 
 type User struct {
@@ -20,7 +21,7 @@ type Member struct {
 	Middlename string `json:"middlename"`
 	Lastname   string `json:"lastname"`
 	Email      string `json:"email"`
-	Password   string `json:"password"`
+	Code       string `json:"code"`
 	Age        string `json:"age"`
 	Interest   string `json:"interest"`
 }
@@ -70,12 +71,46 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(&User{})
 }
 
+func addMember(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+	w.Header().Set("Content-Type", "application/json")
+	var params map[string]string
+	json.NewDecoder(r.Body).Decode(&params)
+	members = append(members, Member{ID: strconv.Itoa(rand.Intn(100)), Firstname: params["firstname"], Middlename: params["middlename"], Lastname: params["lastname"], Email: params["email"], Code: params["code"], Age: params["age"], Interest: params["interest"]})
+	json.NewEncoder(w).Encode(&Member{})
+}
+
+func deleteMember(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	for i, item := range members {
+		if item.ID == params["id"] {
+			members = append(members[:i], members[i+1:]...)
+			return
+		}
+	}
+	json.NewEncoder(w).Encode(&Member{})
+}
+
+func updateMember(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+	w.Header().Set("Content-Type", "application/json")
+	var params map[string]string
+	json.NewDecoder(r.Body).Decode(&params)
+	for i, item := range members {
+		if item.ID == params["id"] {
+			members = append(members[:i], members[i+1:]...)
+			members = append(members, Member{ID: params["id"], Firstname: params["firstname"], Middlename: params["middlename"], Lastname: params["lastname"], Email: params["email"], Code: params["code"], Age: params["age"], Interest: params["interest"]})
+			return
+		}
+	}
+	json.NewEncoder(w).Encode(&User{})
+}
+
 func login(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 	var params map[string]string
 	json.NewDecoder(r.Body).Decode(&params)
-	fmt.Println(params["username"])
 	for _, item := range users {
 		if item.Name == params["username"] {
 			json.NewEncoder(w).Encode(item)
@@ -88,17 +123,20 @@ func login(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 	// added Users
-	users = append(users, User{ID: "1", Name: "assambly", Role: "admin"})
+	users = append(users, User{ID: "1", Name: "assembly", Role: "admin"})
 	users = append(users, User{ID: "2", Name: "client", Role: "client"})
 	users = append(users, User{ID: "3", Name: "r.mordvinov", Role: "admin"})
 	r.HandleFunc("/users", getUsers).Methods("GET")
 	r.HandleFunc("/user/{id}", getUser).Methods("GET")
 	// added Members
-	members = append(members, Member{ID: "1", Firstname: "Ivan", Middlename: "Ivanovich", Lastname: "Ivanov", Email: "i.ivanov@hexa.com", Password: "4321", Age: "22", Interest: "grappling"})
-	members = append(members, Member{ID: "2", Firstname: "Oleg", Middlename: "Olegovich", Lastname: "Olegov", Email: "o.olegov@hexa.com", Password: "1234", Age: "37", Interest: "box"})
-	members = append(members, Member{ID: "3", Firstname: "Marta", Middlename: "Therr", Lastname: "Maitz", Email: "m.maitz@hexa.com", Password: "3322", Age: "18", Interest: "stretching"})
+	members = append(members, Member{ID: "1", Firstname: "Ivan", Middlename: "Ivanovich", Lastname: "Ivanov", Email: "i.ivanov@hexa.com", Code: "4321", Age: "22", Interest: "grappling"})
+	members = append(members, Member{ID: "2", Firstname: "Oleg", Middlename: "Olegovich", Lastname: "Olegov", Email: "o.olegov@hexa.com", Code: "1234", Age: "37", Interest: "box"})
+	members = append(members, Member{ID: "3", Firstname: "Marta", Middlename: "Therr", Lastname: "Maitz", Email: "m.maitz@hexa.com", Code: "3322", Age: "18", Interest: "stretching"})
 	r.HandleFunc("/members", getMembers).Methods("GET")
 	r.HandleFunc("/member/{id}", getMember).Methods("GET")
+	r.HandleFunc("/member/{id}", updateMember).Methods("POST")
+	r.HandleFunc("/member", addMember).Methods("POST")
+	r.HandleFunc("/member/delete/{id}", deleteMember).Methods("GET")
 
 	r.HandleFunc("/auth", login).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8000", r))
