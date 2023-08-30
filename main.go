@@ -10,9 +10,9 @@ import (
 )
 
 type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-	Role string `json:"role"`
+	ID       string `json:"id"`
+	Username string `json:"username"`
+	Role     string `json:"role"`
 }
 
 type Member struct {
@@ -112,7 +112,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 	var params map[string]string
 	json.NewDecoder(r.Body).Decode(&params)
 	for _, item := range users {
-		if item.Name == params["username"] {
+		if item.Username == params["username"] {
 			json.NewEncoder(w).Encode(item)
 			return
 		}
@@ -123,9 +123,9 @@ func login(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 	// added Users
-	users = append(users, User{ID: "1", Name: "assembly", Role: "admin"})
-	users = append(users, User{ID: "2", Name: "client", Role: "client"})
-	users = append(users, User{ID: "3", Name: "r.mordvinov", Role: "admin"})
+	users = append(users, User{ID: "1", Username: "assembly", Role: "admin"})
+	users = append(users, User{ID: "2", Username: "client", Role: "client"})
+	users = append(users, User{ID: "3", Username: "r.mordvinov", Role: "admin"})
 	r.HandleFunc("/users", getUsers).Methods("GET")
 	r.HandleFunc("/user/{id}", getUser).Methods("GET")
 	// added Members

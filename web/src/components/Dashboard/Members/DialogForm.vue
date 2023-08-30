@@ -30,8 +30,8 @@ const {handleSubmit} = useForm({
   },
 })
 
-let email: any = useField("email")
-let code: any = useField("code")
+const email: any = useField("email")
+const code: any = useField("code")
 const firstname: any = useField("firstname")
 const middlename: any = useField("middlename")
 const lastname: any = useField("lastname")
@@ -53,9 +53,9 @@ const submit: any = handleSubmit((values, actions) => {
     method: 'POST',
     body: JSON.stringify(member)
   })
-      .then(response => response.json())
-      .then(() => memberStore.getMembers())
-      .then(() => emit('closeDialog'))
+    .then(response => response.json())
+    .then(() => memberStore.getMembers())
+    .then(() => emit('closeDialog'))
   actions.resetForm()
 })
 </script>
@@ -72,94 +72,94 @@ const submit: any = handleSubmit((values, actions) => {
             <v-container>
               <v-row>
                 <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
+                  cols="12"
+                  sm="6"
+                  md="4"
                 >
                   <v-text-field
-                      label="Legal first name*"
-                      required
-                      v-model="firstname.value.value"
-                      :error-messages="firstname.errorMessage.value"
-                      name="firstname"
-                      variant="underlined"
-                      hide-details
+                    label="Legal first name*"
+                    required
+                    v-model="firstname.value.value"
+                    :error-messages="firstname.errorMessage.value"
+                    name="firstname"
+                    variant="underlined"
+                    hide-details
                   ></v-text-field>
                 </v-col>
                 <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
+                  cols="12"
+                  sm="6"
+                  md="4"
                 >
                   <v-text-field
-                      label="Legal middle name"
-                      hint="not necessary"
-                      v-model="middlename.value.value"
-                      :error-messages="middlename.errorMessage.value"
-                      variant="underlined"
+                    label="Legal middle name"
+                    hint="not necessary"
+                    v-model="middlename.value.value"
+                    :error-messages="middlename.errorMessage.value"
+                    variant="underlined"
                   ></v-text-field>
                 </v-col>
                 <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
+                  cols="12"
+                  sm="6"
+                  md="4"
                 >
                   <v-text-field
-                      label="Legal last name*"
-                      hint="*please do not ignore this field"
-                      persistent-hint
-                      required
-                      v-model="lastname.value.value"
-                      :error-messages="lastname.errorMessage.value"
-                      variant="underlined"
+                    label="Legal last name*"
+                    hint="*please do not ignore this field"
+                    persistent-hint
+                    required
+                    v-model="lastname.value.value"
+                    :error-messages="lastname.errorMessage.value"
+                    variant="underlined"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                      label="Email*"
-                      required
-                      v-model="email.value.value"
-                      name="email"
-                      prepend-inner-icon="mdi-email"
-                      :error-messages="email.errorMessage.value"
-                      variant="underlined"
+                    label="Email*"
+                    required
+                    v-model="email.value.value"
+                    name="email"
+                    prepend-inner-icon="mdi-email"
+                    :error-messages="email.errorMessage.value"
+                    variant="underlined"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                      label="Code*"
-                      type="password"
-                      name="code"
-                      v-model="code.value.value"
-                      prepend-inner-icon="mdi-key"
-                      :error-messages="code.errorMessage.value"
-                      required
-                      variant="underlined"
+                    label="Code*"
+                    type="password"
+                    name="code"
+                    v-model="code.value.value"
+                    prepend-inner-icon="mdi-key"
+                    :error-messages="code.errorMessage.value"
+                    required
+                    variant="underlined"
                   ></v-text-field>
                 </v-col>
                 <v-col
-                    cols="12"
-                    sm="6"
+                  cols="12"
+                  sm="6"
                 >
                   <v-select
-                      :items="['0-17', '18-29', '30-54', '54+']"
-                      label="Age*"
-                      required
-                      v-model="age.value.value"
-                      :error-messages="age.errorMessage.value"
-                      variant="underlined"
+                    :items="['0-17', '18-29', '30-54', '54+']"
+                    label="Age*"
+                    required
+                    v-model="age.value.value"
+                    :error-messages="age.errorMessage.value"
+                    variant="underlined"
                   ></v-select>
                 </v-col>
                 <v-col
-                    cols="12"
-                    sm="6"
+                  cols="12"
+                  sm="6"
                 >
                   <v-autocomplete
-                      :items="['Grappling', 'Box', 'Stretching', 'Basketball', 'Basejump']"
-                      label="Interests"
-                      v-model="interest.value.value"
-                      :error-messages="interest.errorMessage.value"
-                      variant="underlined"
+                    :items="['Grappling', 'Box', 'Stretching', 'Basketball', 'Basejump']"
+                    label="Interests"
+                    v-model="interest.value.value"
+                    :error-messages="interest.errorMessage.value"
+                    variant="underlined"
                   ></v-autocomplete>
                 </v-col>
               </v-row>
@@ -169,16 +169,16 @@ const submit: any = handleSubmit((values, actions) => {
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                color="blue-darken-1"
-                variant="text"
-                @click="$emit('closeDialog')"
+              color="blue-darken-1"
+              variant="text"
+              @click="$emit('closeDialog')"
             >
               Close
             </v-btn>
             <v-btn
-                color="blue-darken-1"
-                variant="text"
-                type="submit"
+              color="blue-darken-1"
+              variant="text"
+              type="submit"
             >
               Save
             </v-btn>

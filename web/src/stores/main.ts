@@ -31,9 +31,9 @@ export const useMainStore = defineStore('main', {
       })
         .then(response => response.json())
         .then(response => {
-          this.user.name = response.name
+          this.user.name = response.username
           this.user.role = response.role
-          localStorage.setItem('user', response.name)
+          localStorage.setItem('user', response.username)
           localStorage.setItem('role', response.role)
           this.isAuthenticated = true
         })
